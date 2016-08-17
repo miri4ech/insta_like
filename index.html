@@ -1,0 +1,162 @@
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Pinterest Like</title>
+	<!-- レンダリング前にliberphpを読み込む -->
+	<script src="./liber.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="./custom.css">
+</head>
+<body>
+<script>
+	'use strict';
+
+	// アカウント管理の一覧画面
+	$app.drawHeader=function(h){
+		var d = $div({class:'basic_header'},h);
+
+		$a([
+			$img({src:'./img/logo.png',class:'basic_img'}),
+		],d)
+		.attr({href:'file:///Users/mkunisada/Desktop/liberphp_sample/pinterest_test/index.html'});
+
+		$input({placeholder:'Search',class:'basic_search'},d)
+		.bind('keyup',function(){
+			var char = event.which || event.keyCode;
+			if(char == 13){
+				//一旦空にする（検索の時だけ）
+				$this.content_d.innerHTML = '';
+				$this.searchData("&nickname@l=" + this.value);
+			}
+		});
+
+		//hamburger menu
+		$a([
+			$img({src:'./img/ham.png'}).css({padding:'20px',position:'fixed',right:'50px'}),
+		],d).bind('click',function(){	
+			var rect = $.rect(this);
+			$app.openView('modal_list_view?x='+rect.left+"&y="+rect.top+"&w="+rect.width+"&h="+rect.height);
+		});
+
+		$div({class:'clearfix'},d);
+	};
+
+	// アカウント管理の一覧画面
+	$app.drawFooter=function(f){
+		$div({html:'Copyright (C) 2016 by Miri Kunisada All Rights Reserved.',class:'basic_footer'},f);
+	};
+
+	var pins_list_view = {
+
+		name : 'pins_list_view',
+
+		drawContent:function(w,l){
+
+			var wrapper_d = $div({id:'wrapper'},w);
+			$this.content_d = $div({id:'columns'},wrapper_d);
+			$this.searchData('');
+
+			var el = document.getElementById('wrapper');
+			var el_height = el.offsetHeight;
+			el.bind('scroll',function(){
+
+				//要素のスクロール分を含めた高さを取得
+				var scrollHeight = el.scrollHeight;
+
+				//要素のスクロール位置を取得
+				var scrollTop = el.scrollTop;
+
+				//現在の表示位置の高さ 
+				var scrollPosition = el_height + scrollTop;
+
+				if((scrollHeight - scrollPosition) / scrollHeight <= 0) {
+					$this.searchData("&id@gt="+$this.last);
+				}
+			})
+
+
+		},
+		searchData:function(a){
+
+			var url = 'http://api.liberdev.com/users?order=id&limit=36'+a;
+			$http.get(url,{},function(r,e){
+				$this.data = r;
+
+				//最後のidを取得
+				$this.last = r[r.length-1].id;
+				if(r == ''){
+					$div({html:'該当するデータがありません'},$this.content_d);
+				}else{
+			        for(var i=0;i<r.length;i++){
+						var	pins_d = $div([
+							$img({src:'http://api.liberdev.com/' + r[i].thumb}),
+							$p(r[i].nickname),
+							$small(r[i].email),
+						],$this.content_d).addClass('pin');
+			    	}
+		    	}
+			});		
+		},
+	}
+
+	var modal_list_view = {
+		name:'modal_list_view',
+		onLoad:function(p){
+			$this.x = parseInt(p.x);
+			$this.y = parseInt(p.y);
+			$this.w = parseInt(p.w);
+			$this.h = parseInt(p.h);
+			$this.loaded();//required manually
+		},
+		drawContent:function(w,l){
+			$table([
+					$tr([
+						$th('性別'),
+						$td([
+							$input('男').attr({type:'radio',name:'male'}),
+							$input('女').attr({type:'radio',name:'female'}),
+						]),
+					]),
+					$tr([	
+						$th('住所'),
+						$td([
+							$form([
+								$select(
+									[
+										'東京',
+										'大阪',
+										'沖縄',
+									],
+									[
+										{value:'tokyo'},
+										{value:'osaka'},
+										{value:'okinawa'},
+									]
+								),
+							]),
+						]),
+					]),
+					$tr([
+						$th({html:'フリーワード'}),
+						$td([
+							$input({placeholder:'フリーワード'}).attr({submit:'検索'}),
+						]),
+					]),
+			],w).attr({id:'modal_menu'}).addClass('modal_menu');
+
+			// .css({top:$this.y + 80 + 'px',right:$this.x + 20 + 'px'}); 
+
+			pins_list_view.layer.css({display:'block'});
+
+			l.bind('click',$this.close);
+		},
+	}
+
+	window.onload = function(){
+		$app.start("pins_list_view");
+	}
+
+</script>
+</body>
+</html>
