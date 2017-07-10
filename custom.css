@@ -46,8 +46,8 @@
 }
  
 #columns {
-    column-count: 6;
-    column-gap: 15px;
+    column-count: 4;
+    column-gap: 20px;
     column-fill: auto;
 }
  
@@ -77,9 +77,11 @@
 .pin p {
     font: 12px Arial;
     font-weight: bold;
+    height: 30px;
     color: #555555;
     margin: 15px 0 0 0;
     border-top: 1px solid #CCC;
+    word-wrap: break-word;
 }
 
 .pin small {
@@ -94,22 +96,4 @@
     font-weight: bold;
     border-top: 2px solid #FAFAFA;
     padding: 20px;
-}
-
-
-/* hamburger menu */
-.menu-trigger img {
-    padding: 20px;
-}
-
-.modal_menu {
-	color: #cb2028;
-	font: 12px Arial;
-	background-color: #EFEFEF;
-	border: 2px solid #FAFAFA; 
-	width: 300px;
-	height: 200px;
-	position: fixed;
-	right: 20px;
-	top: 70px;
 }
