@@ -1,4 +1,4 @@
-# pinterest_like
+# [insta_like](https://miri4ech.github.io/insta_likes/)
 
 - pinterst like layout
 - like button feature (cookie)
