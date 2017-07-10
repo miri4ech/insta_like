@@ -6,6 +6,7 @@
 ## Requirements
 
 - liber.js
+- Toolbelt (for heroku)
 
 
 ## License

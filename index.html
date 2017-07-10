@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Pinterest Like</title>
+		<title>insta_likes</title>
 		<script src="./liber.js"></script>
 		<link rel="stylesheet" type="text/css" href="./custom.css">
 	</head>
@@ -70,7 +70,7 @@
 
 				var insta_api = "https://api.instagram.com/v1/users/self/media/recent/?access_token="+config.ACCESS_TOKEN;
 				var url = insta_api+a;
-				$http.post(url,{},function(r,e){
+				$http.get(url,{},function(r,e){
 					$this.data = r['data'];
 					console.log(r);
 					//最後のidを取得
