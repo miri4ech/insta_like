@@ -25,7 +25,7 @@
 #columns {
   column-count: 4;
   column-gap: 20px;
-  column-fill: auto;
+  /*column-fill: auto;*/
 }
 
 .basic_header {
