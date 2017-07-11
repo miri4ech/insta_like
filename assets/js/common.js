@@ -1,5 +1,4 @@
-jQuery(function(){
-
+$(function () {
 	//setting
 	const config = {
 		ACCESS_TOKEN : '3175701600.c9fdd34.bd927a583d6941168e08692ca0b3ec5c' //set your instagram api 
@@ -15,17 +14,20 @@ jQuery(function(){
 			success: function(res){
 				var data = res['data'];
 				var columns = document.getElementById('columns');
-				function makeDom(){
+				function makeDom(i){
 					var div = document.createElement('div');
 					div.className = 'pin';
 
+					var a = document.createElement('a');
+					a.href= data[i].images.standard_resolution.url;
+
 					var img = document.createElement('img');
 					img.src = data[i].images.low_resolution.url;
-
 					var p = document.createElement('p');
 					p.innerHTML = data[i].caption.text;
 
-					div.appendChild(img);
+					a.appendChild(img);
+					div.appendChild(a);
 					div.appendChild(p);
 					columns.appendChild(div);
 				}
@@ -34,18 +36,29 @@ jQuery(function(){
 					d.innerHTML = "該当するデータがありません";
 					columns.appendChild(d);
 				}else{
-	      	for(var i=0;i<data.length;i++){
-	      		//serch check
-	      		if(a){
-		      		if(data[i].caption.text.indexOf(a) != -1)makeDom();
-	      		}else{
-	      			makeDom();
+	      			for(var i=0;i<data.length;i++){
+			      		//serch check
+			      		if(a){
+				      		if(data[i].caption.text.indexOf(a) != -1)makeDom(i);
+			      		}else{
+			      			makeDom(i);
 						}
-	    		}
-	    	}
+		    		}
+		    	}
+
+		    	//magnific popup
+				$('.parent-container').magnificPopup({
+					delegate: 'a', 
+					type: 'image',
+					closeBtnInside: false,
+					gallery: {
+						enabled:true
+					}
+				});
 			}
 		});
 	}
+
 
 	var search_el = document.getElementById('search');
 	search_el.onkeyup = function(){
