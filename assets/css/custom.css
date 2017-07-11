@@ -26,6 +26,7 @@
   column-count: 4;
   column-gap: 20px;
   /*column-fill: auto;*/
+  margin-top: 16px;
 }
 
 .basic_header {
