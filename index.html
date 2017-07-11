@@ -2,93 +2,35 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>insta_likes</title>
-		<script src="./liber.js"></script>
-		<link rel="stylesheet" type="text/css" href="./custom.css">
+		<title>insta_like</title>
+		<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
 	</head>
 	<body>
-	<script>
-		'use strict';
+		<!-- header -->
+		<div class="basic_header">
+			<a href="/">
+				<img src="assets/img/icon.png" class="basic_img">
+			</a>
+			<input id="search" placeholder="title:search">
+			<div class="clearfix"></div>
+		</div>
+		<!-- content -->
+		<div id="wrapper">
+			<div id="columns"></div>
+		</div>
+		<!-- footer -->
+		<div class="basic_footer">Copyright (C) 2017 by miri4ech All Rights Reserved.</div>
 
-		//setting
-		const config = {
-			ACCESS_TOKEN : '3175701600.c9fdd34.bd927a583d6941168e08692ca0b3ec5c' //your instagram api 
-		}
-
-		window.onload = function(){
-			$app.start("pins_list_view");
-		}
-
-		$app.drawHeader=function(h){
-			var d = $div({class:'basic_header'},h);
-
-			$a([
-				$img({src:'./img/logo.png',class:'basic_img'}),
-			],d)
-			.attr({href:'index.html'});
-
-			$input({placeholder:'Search',class:'basic_search'},d).bind('keyup',function(){
-				var char = event.which || event.keyCode;
-				if(char == 13){
-					$this.content_d.innerHTML = '';
-					$this.searchData("&title@l=" + this.value);
-				}
-			});
-
-			$div({class:'clearfix'},d);
-		};
-
-		$app.drawFooter=function(f){
-			$div({html:'Copyright (C) 2017 by miri4ech All Rights Reserved.',class:'basic_footer'},f);
-		};
-
-		var pins_list_view = {
-
-			name : 'pins_list_view',
-
-			drawContent:function(w,l){
-
-				var wrapper_d = $div({id:'wrapper'},w);
-				$this.content_d = $div({id:'columns'},wrapper_d);
-				$this.searchData('');
-
-				var el = document.getElementById('wrapper');
-				var el_height = el.offsetHeight;
-				el.bind('scroll',function(){
-
-					var scrollHeight = el.scrollHeight;
-					var scrollTop = el.scrollTop;
-					var scrollPosition = el_height + scrollTop;
-
-					if((scrollHeight - scrollPosition) / scrollHeight <= 0) {
-						$this.searchData("&id@gt="+$this.last);
-					}
-				})
-
-			},
-			searchData:function(a){
-
-				var insta_api = "https://api.instagram.com/v1/users/self/media/recent/?access_token="+config.ACCESS_TOKEN;
-				var url = insta_api+a;
-				$http.get(url,{dataType: "jsonp"},function(r,e){
-					$this.data = r['data'];
-					console.log(r);
-					//最後のidを取得
-					$this.last = r[r.length-1].id;
-					if(!r){
-						$div({html:'該当するデータがありません'},$this.content_d);
-					}else{
-				        for(var i=0;i<12;i++){
-							var	pins_d = $div([
-								$img({src: r[i].url}),
-								$p(r[i].title),
-							],$this.content_d).addClass('pin');
-				    	}
-			    	}
-				});		
-			},
-		}
-
-	</script>
+		<script src="assets/js/modernizr.min.js"></script>
+		<script>
+			if(Modernizr.csstransitions){
+				document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"><\/script>');
+				window.jQuery || document.write('<script src="assets/js/jquery-2.1.1.min.js"><\/script>');
+			}else{
+				document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"><\/script>');
+				window.jQuery || document.write('<script src="assets/js/jquery-1.11.1.min.js"><\/script>');
+			}
+		</script>
+		<script src="assets/js/common.js"></script>
 	</body>
 </html>

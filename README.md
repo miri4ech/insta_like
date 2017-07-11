@@ -1,12 +1,11 @@
-# [insta_like](https://miri4ech.github.io/insta_likes/)
+# [insta_like](https://miri4ech.github.io/insta_like/)
 
-- pinterst like layout
-- like button feature (cookie)
+- instagram photos / layout pinterest like
+- search by title
 
 ## Requirements
 
-- liber.js
-- Toolbelt (for heroku)
+- [Your Instagram API AccessToken](https://www.instagram.com/developer/) 
 
 
 ## License
