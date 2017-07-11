@@ -7,7 +7,7 @@
 
 - [Your Instagram API AccessToken](https://www.instagram.com/developer/) 
 - prefarable browser Chrome (layout may not be fixed with others)
-- you need to add "routes/config.php" s
+- you need to add "routes/config.php" the sample below:
 
 ```config.php
 <?php
@@ -23,7 +23,6 @@ define( 'DSN', 'mysql:host=test;dbname=' . $db_data[ 'database' ] );
 define( 'DB_USER', $db_data[ 'username' ] );
 define( 'DB_PASSWORD', $db_data[ 'password' ] );
 error_reporting( E_ALL & ~E_NOTICE );
-
 
 ```
 
