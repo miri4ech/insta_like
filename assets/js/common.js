@@ -33,7 +33,7 @@ $(function () {
 				}
 				if(!data){
 					var d = document.createElement('div');
-					d.innerHTML = "該当するデータがありません";
+					d.innerHTML = "your request matched 0 results";
 					columns.appendChild(d);
 				}else{
 	      			for(var i=0;i<data.length;i++){
