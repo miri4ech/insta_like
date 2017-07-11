@@ -7,7 +7,6 @@
 		<link rel="stylesheet" type="text/css" href="./custom.css">
 	</head>
 	<body>
-	<?php header('Access-Control-Allow-Origin: *'); ?>
 	<script>
 		'use strict';
 
@@ -71,7 +70,7 @@
 
 				var insta_api = "https://api.instagram.com/v1/users/self/media/recent/?access_token="+config.ACCESS_TOKEN;
 				var url = insta_api+a;
-				$http.get(url,{},function(r,e){
+				$http.get(url,{dataType: "jsonp"},function(r,e){
 					$this.data = r['data'];
 					console.log(r);
 					//最後のidを取得
