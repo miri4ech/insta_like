@@ -6,7 +6,7 @@
 ## Requirements
 
 - [Your Instagram API AccessToken](https://www.instagram.com/developer/) 
-
+- prefarable browser Chrome (layout may not be fixed with others)
 
 ## License
 
