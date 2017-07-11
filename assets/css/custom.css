@@ -95,3 +95,24 @@
   padding: 20px;
   text-align: center;
 }
+
+#heart-click {
+  color: black;
+}
+#heart-click img {
+  width: 40px;
+  height: 40px;
+  padding: 25px;
+  position: absolute;
+  right: 40px;
+}
+
+#heart-click span {
+  border: 1px solid black;
+  font-family: sans-serif;
+  padding: 5px 12px;
+  border-radius: 3px;
+  position: absolute;
+  right: 15px;
+  top: 35%;
+}
