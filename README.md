@@ -1,4 +1,4 @@
-# [insta_like (static pages only)](https://miri4ech.github.io/insta_like/) 
+# insta_like 
 
 - instagram photos / layout pinterest like 
 - search by title
